@@ -6,7 +6,7 @@ export default function AboutUs() {
   return (
     <div className='container'>
     <div className='row'>
-      <div className='col-md-7'>
+      <div className='col-md-6'>
       <h2>About Us</h2>
     
       <p>Lorem  Ipsum is simply dummy text of the printing and typesetting industry.

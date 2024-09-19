@@ -10,7 +10,7 @@ export default function Footer() {
     <div className="sub2">
         <div className="subLists gap-4">
             <div className='colSub  get_know '>
-                <li className='heading'>Get to Know <br/>Us</li>
+                <li className='heading '>Get to Know Us</li>
                 <li><a href="#" className='text' >About Us</a>
                     </li>
                 <li>
@@ -21,8 +21,8 @@ export default function Footer() {
                     </li>
                
             </div>
-            <div className='colSub connect'>
-                <li className='heading'>Connect with <br/>Us</li>
+            <div className='colSub connect '>
+                <li className='heading'>Connect with Us</li>
                 <li>
                     <a href='#' className='text'>Facebook</a>
                     </li>
@@ -34,7 +34,7 @@ export default function Footer() {
                    </li>
             </div>
             <div className='colSub  p-4'>
-                <li className='heading '>Make Money with Us</li>
+                <li className='heading mt-3'>Make Money with Us</li>
                 <li>
                 <a href='#' className='text'>Sell On Ekart</a>
                </li>
@@ -51,7 +51,7 @@ export default function Footer() {
              </div>
              
                  <div className='colSub mt-4'>
-                    <li className='heading'>Let Us Help You </li>
+                    <li className='heading mt-3'>Let Us Help You </li>
                   
                     <li> 
                         <a href='#' className='text'>Your Account</a>
