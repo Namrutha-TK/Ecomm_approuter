@@ -1,57 +1,99 @@
 'use client';
-import React,{useState,useContext, createContext,ReactNode ,useEffect} from "react";
+import { createContext, useState, useEffect, ReactNode } from 'react';
 
-import { ProductService } from "@/app/services/Products_Service";
 
-type CartCountContextType = {
-  cartCount: number;
-  updateCartCount: (count: number) => void;
-};
+export interface CartItem{
+  documentId:string;
+  id:string;
+  title:string;
+  price:number;
+  description:string;
+  category_name:string;
+  image:string;
+  quantity?:number;
+}
+interface CartContextType {
+  cartItems: CartItem[];
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (item: CartItem) => void;
+  getCartTotal: () => number;
+  clearCart:()=>void;
+}
 
-const CartCountContext = createContext<CartCountContextType | undefined>(undefined);
+export const CartContext = createContext<CartContextType | undefined>(undefined);
 
-export const useCartCount = () => {
-  const context = useContext(CartCountContext);
-  if (!context) {
-    throw new Error('useCartCount must be used within a CartCountProvider');
-  }
-  return context;
-};
+export const CartProvider = ({children}:{ children: ReactNode }) => {
+  const [cartItems, setCartItems] = useState<CartItem[]>(
+    localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')||'[]') : [])
 
-type CartCountProviderProps = {
-  children: ReactNode;
-};
-//let cartData:any;
-export const CartCountProvider: React.FC<CartCountProviderProps> = ({ children }) => {
-  const [cartCount, setCartCount] = useState<number>(0);
-  useEffect(() => {
-   
-    const getInitalCart=async()=>{
-     const  cartData=await ProductService.getCartData()
-      setCartCount(cartData.total_unique_items)
+  const addToCart = (item:any) => {
+    const isItemInCart = cartItems.find((cartItem:any) => cartItem.documentId === item.documentId);
+
+    if (isItemInCart) {
+      setCartItems(
+        cartItems.map((cartItem:any) =>
+          cartItem.id === item.id
+            ? { ...cartItem, quantity:( cartItem.quantity || 0 )+ 1 }
+            : cartItem
+        )
+      );
+    } else {
+      setCartItems([...cartItems, { ...item, quantity: 1 }]);
     }
-  
-    getInitalCart()
-    
+  };
+
+  const removeFromCart = (item: CartItem) => {
+    const isItemInCart = cartItems.find((cartItem) => cartItem.documentId === item.documentId);
+
+    if (isItemInCart) {
+      const currentQuantity = isItemInCart.quantity ?? 0;
+    if (currentQuantity === 1) {
+      setCartItems(cartItems.filter((cartItem) => cartItem.documentId !== item.documentId));
+    } else {
+      setCartItems(
+        cartItems.map((cartItem) =>
+          cartItem.documentId === item.documentId
+            ? { ...cartItem, quantity: currentQuantity - 1 }
+            : cartItem
+        )
+      );
+    }
+  }
+  };
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
+  const getCartTotal = () => {
+    return cartItems.reduce((total:any, item:any) => total + item.price * item.quantity, 0);
+  };
+
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(cartItems));
+  }, [cartItems]);
+
+  useEffect(() => {
+    const cartItems = localStorage.getItem("cartItems");
+    if (cartItems) {
+      setCartItems(JSON.parse(cartItems));
+    }
   }, []);
+  return (
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        removeFromCart,
+        getCartTotal,
+        clearCart,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+
   
-
-
-const updateCartCount = (count: number) => {
-  setCartCount(count);
-};
-return (
-  <CartCountContext.Provider value={{ cartCount, updateCartCount }}>
-    {children}
-  </CartCountContext.Provider>
-);
 };
 
-   
-   
-   
-
-
-export default CartCountContext ;
 
 

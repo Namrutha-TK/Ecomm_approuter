@@ -7,12 +7,12 @@ export default async function Header() {
   console.log("Header");
   logoUrl=await MerchantService.getMerchant();
   return (
-    <div className='container-fluid m-0 p-0 bg-primary '>
+    <div className='container-fluid m-0 p-0 bg-dark '>
   
 <nav className="navbar navbar-expand-lg ">
-  <div className="container-fluid ml-5">
+  <div className="container-fluid ml-5 pl-5 align-items-center justify-content-center">
   <a className="navbar-brand text-light ml-5 pl-5" href="#">
-      <img src={logoUrl} alt="Logo" width="50" height="44" className="d-inline-block align-text-center" />
+      <img src={logoUrl} alt="Logo" width="60" height="50" className="d-inline-block align-text-center" />
       &nbsp;Dmart
     </a>
    

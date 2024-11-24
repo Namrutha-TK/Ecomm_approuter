@@ -11,15 +11,15 @@ export default async function Home() {
     <div className="carousel-inner">
       <div className="carousel-item active">
        
-         <img src={"/b1.jpg"} className="d-inline w-100" height={350} alt="..." /> 
+         <img src={"/b4.jpg"} className="d-inline w-100" height={400} alt="..." /> 
       </div>
       <div className="carousel-item">
       
-         <img src={"/b2.jpg"} className="d-inline w-100" height={350} alt="..." /> 
+         <img src={"/b2.jpg"} className="d-inline w-100" height={400} alt="..." /> 
       </div>
       <div className="carousel-item">
       
-         <img src={"/b3.jpg"} className="d-inline w-100" height={350} alt="..." /> 
+         <img src={"/b3.jpg"} className="d-inline w-100" height={400} alt="..." /> 
       </div>
     </div>
     <button className="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">

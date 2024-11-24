@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import 'bootstrap/dist/css/bootstrap.css';
+//import "bootstrap/dist/css/bootstrap.min.css";
+//import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Header from "./components/header/Header";
 import "./globals.css";
 import Footer from "./components/footer/Footer";
-import { CartCountProvider } from "./context/CartContext";
+import { CartProvider } from "./context/CartContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -22,11 +24,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
       <div className="container-fluid m-0 p-0">
-      <CartCountProvider>
+      <CartProvider>
         <Header/>
         {children}
         <Footer/>
-        </CartCountProvider>
+        </CartProvider>
         </div>
         </body>
     </html>
